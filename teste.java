@@ -2,81 +2,76 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
 import java.util.Scanner;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.io.File;
+import java.io.FileInputStream;
 
 public class teste {
 
     public static void main(String[] args) throws IOException {
-        
-    //try{
 
     Scanner sc = new Scanner(System.in);
+    
+    InputStream inputStream = null;
+    OutputStream outputStream = null;
 
-    System.out.print("Arquivo de entrada (zip): ");
-    String inputf = sc.next();
-    if (!inputf.contains(".zip")){
-        inputf = (inputf+".zip");
-    }    
+    System.out.print("Arquivo de entrada: ");
+    String inputFileName = sc.next();
+    
+    File inputFile = new File(inputFileName);
+    String dir = inputFile.getAbsolutePath();
+    //File file = dir.listFiles((dir1, name) -> name.equals(inputFileName))[0]; 
+    System.out.println(inputFile);
+
+    // if (!inputf.contains(".zip")){
+    //     inputf = (inputf+".zip");
+    // }    
     
     System.out.print("Arquivo de saída (txt): ");
-    String outputf = sc.next();
-    if (!outputf.contains(".txt")){
-        outputf = (outputf+".txt");
-    }    
+    File outputFile = new File(sc.next());
+
+    // if (!outputf.contains(".txt")){
+    //     outputf = (outputf+".txt");
+    // }    
 
     sc.close();
 
         int TAMANHO_BUFFER = 8192;        
-        byte[] buffer = new byte[TAMANHO_BUFFER];
+        byte[] buffer = new byte[TAMANHO_BUFFER];        
 
-        InputStream inputZip = null;
-        OutputStream outputZip = null;
+        long fs = inputFile.length();
 
-        ZipFile arquivoZip = new ZipFile(inputf);
-        long fs = inputf.length();
+        long startTime = System.currentTimeMillis();
+        System.out.println(startTime);
 
-        long startTime = System.currentTimeMillis();        
-         System.out.println(startTime);
-        for (TAMANHO_BUFFER+=0 ; TAMANHO_BUFFER >= 4; TAMANHO_BUFFER *= .5){
-            
-        arquivoZip = new ZipFile(inputf);
+        try {
+            inputStream = new FileInputStream(inputFile);
+            outputStream = new FileOutputStream(outputFile);
 
-        Enumeration<? extends ZipEntry> entradas = arquivoZip.entries();
-
-            buffer = new byte[TAMANHO_BUFFER];
-
-            while(entradas.hasMoreElements()) {
-                ZipEntry entrada = (ZipEntry) entradas.nextElement();
-                
-                inputZip = arquivoZip.getInputStream(entrada);
-                outputZip = new FileOutputStream(outputf);
-            
-                int bytesLidos = 0;
-
-                while((bytesLidos = inputZip.read(buffer)) > 0) {
-                    outputZip.write(buffer, 0, bytesLidos);
-                }
-
-                inputZip.close();
-                outputZip.close();
-
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
 
             long elapsedTime = System.currentTimeMillis() - startTime;
-            System.out.println(     "\nTamanho do arquivo:"+   fs               +"Bytes"               + '('+')'+
-                                    "\nTempo de execução: "+   elapsedTime/1000      +"segundos"            +
-                                    "\nTamanho do buffer: "+   TAMANHO_BUFFER   +"Bytes"+'('+')');
-
-        arquivoZip.close();    
-        }  
-
+            System.out.println(
+                "\nTamanho do arquivo: " + fs + " Bytes" + '(' + ')' +
+                "\nTempo de execução: " + elapsedTime / 1000 + " segundos" +
+                "\nTamanho do buffer: " + TAMANHO_BUFFER + " Bytes" + '(' + ')'
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-    //catch (ZipException entradas){
-       // throw entradas;
-    //}
-//}
 }
