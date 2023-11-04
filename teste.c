@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Modelo 2 de read-write em C
+
 int main() {
     FILE *inputFile;
     FILE *outputFile;

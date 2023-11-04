@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// Modelo 1 de read-write em C
+
 int main() {
     FILE *inputFile, *outputFile;
     char inputFileName[32], outputFileName[32];
