@@ -23,6 +23,7 @@ class main():
         filesize = ofilesize
         pbyte = byte
         bfs = 'Bytes'
+        fs = bfs
 
         if filesize >= 10**3:
                 fs = 'KB'
@@ -56,9 +57,9 @@ class main():
 
         end = time.time()
 
-        print ( style.CYAN  + "\nTamanho do arquivo:",   style.GREEN   ,ofilesize,"Bytes",                    style.MAGENTA + '(',round(filesize,2),fs,')',
+        print ( style.CYAN  + "\nTamanho do arquivo:",   style.GREEN   ,ofilesize,"Bytes",                    style.MAGENTA + '(',round(filesize,2), fs,')',
                 style.CYAN  + "\nTempo de execução: ",   style.GREEN   ,round(end - start,2),"segundos",
-                style.CYAN  + "\nTamanho do buffer: ",   style.GREEN   ,TAMANHO_BUFFER,"Bytes",               style.MAGENTA + '(',round(pbyte),bfs,')')
+                style.CYAN  + "\nTamanho do buffer: ",   style.GREEN   ,TAMANHO_BUFFER,"Bytes",               style.MAGENTA + '(',round(pbyte), bfs,')')
 
 print(style.WHITE)
 os.system('cls')
