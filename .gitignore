@@ -1,0 +1,15 @@
+# ignore ALL this files
+*.log
+*.zip
+*.mp4
+*.exe
+*.me
+
+# DO NOT ignore this
+!README.md
+
+# ignore ALL this files in this directory
+temp/
+
+# ignore this folders
+.vscode
