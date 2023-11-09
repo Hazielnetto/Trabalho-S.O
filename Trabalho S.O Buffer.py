@@ -1,5 +1,5 @@
 
-import zipfile, time, os
+import glob, time, os
 
 os.system("")
 
@@ -18,7 +18,6 @@ class style():
 
 class main():
     def __init__(self,byte):
-
         ofilesize = int(os.path.getsize(inputf))
         filesize = ofilesize
         pbyte = byte
@@ -46,14 +45,13 @@ class main():
 
         start = time.time()
 
-        with zipfile.ZipFile(inputf,'r') as arquivo_zip:
-            for entrada in arquivo_zip.infolist():
-                with arquivo_zip.open(entrada) as input_zip, open(outputf, 'wb') as output_zip:
-                    while True:
-                        buffer = input_zip.read(TAMANHO_BUFFER)
-                        if not buffer:
-                            break
-                        output_zip.write(buffer)
+        with open(inputf, 'rb') as inputfile:
+            with open(outputf, 'wb') as outputfile:
+                while True:
+                    bloco = inputfile.read(TAMANHO_BUFFER)
+                    if not bloco:
+                        break
+                    outputfile.write(bloco)
 
         end = time.time()
 
@@ -64,19 +62,31 @@ class main():
 print(style.WHITE)
 os.system('cls')
 
-inputf = input("Arquivo de entrada (zip): ")
-outputf = input("Arquivo de saída (txt): ")
-if not ('.zip') in inputf: 
-    inputf=inputf+'.zip'
+inputf = input(style.CYAN + "Arquivo de entrada: "+style.WHITE)
+inputfs = glob.glob(f'{inputf}.*')
+
+if len(inputfs) == 1:
+    print(style.RED + f'{inputfs} encontrado')
+    inputf = inputfs[0]
+elif len(inputfs) > 1:
+    print(style.RED + f'Foram encontrados {len(inputfs)} arquivos com o mesmo nome:\n')
+    for i, arquivo in enumerate(inputfs):
+        print(style.WHITE + f' - {i+1}. {arquivo}')
+    i = input(style.CYAN + f'\nSelecione qual arquivo deseja (1 - {len(inputfs)}): '+style.WHITE)
+    inputf = inputfs[int(i)-1]      
+else:
+    print(style.YELLOW + f'Nenhum arquivo foi encontrado com o nome {inputf}.')
+
+outputf = input(style.CYAN + "\nArquivo de saída (txt): ")
 if not ('.txt') in outputf:
     outputf=outputf+'.txt'
 
 buffer = 32768
 
-print(style.RED + "### INÍCIO ###")
+print(style.RED + "\n### INÍCIO ###")
 
 while buffer >= 4:
-        main(byte = int(buffer))
+        main(byte=int(buffer))
         buffer *= .5
 
 print(style.RED + "\n### FIM ###")
