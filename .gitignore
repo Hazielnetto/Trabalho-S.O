@@ -4,6 +4,8 @@
 *.mp4
 *.exe
 *.me
+*.txt
+*.json
 
 # DO NOT ignore this
 !README.md
