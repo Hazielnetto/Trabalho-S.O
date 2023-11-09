@@ -20,11 +20,9 @@ public class Trabalho_SO_Buffer {
 
     File inputFile = new File(inputFileName);
     File dir = new File(inputFile.getAbsolutePath());
-    //System.out.println("dir  "+dir);
 
     String path = dir.toString();
     path = path.substring(0, path.lastIndexOf("\\") + 1);
-    //System.out.println("new path  "+path);
 
     dir = new File(path);
     String fileExtension = "";
@@ -35,18 +33,13 @@ public class Trabalho_SO_Buffer {
       fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, f.getName().length());
       fileExtension = fileExtension.toLowerCase();
 
-      //System.out.println("file extension       "+fileExtension);
-      //System.out.println("full file            "+fileName);
-
       if (fileName.equals(inputFile + "." + fileExtension)) {
         inputFile = new File(fileName);
-        //System.out.println("new file___________________   "+inputFile);
       }
     }
 
     System.out.print("Arquivo de saída (txt): ");
     String outputFile = sc.next();
-    //System.out.println("outputfile   "+outputFile);
     if (!outputFile.contains(".txt")) {
       outputFile = (outputFile + ".txt");
     }
