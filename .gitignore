@@ -2,8 +2,9 @@
 *.log
 *.zip
 *.mp4
+*.mkv
 *.exe
-*.me
+*.md
 *.txt
 *.json
 *.bin
