@@ -62,20 +62,24 @@ class main():
 print(style.WHITE)
 os.system('cls')
 
-inputf = input(style.CYAN + "Arquivo de entrada: "+style.WHITE)
-inputfs = glob.glob(f'{inputf}.*')
+loop = 1
+while loop == 1:
+    inputf = input(style.CYAN + "Arquivo de entrada: "+style.WHITE)
+    inputfs = glob.glob(f'{inputf}.*')
 
-if len(inputfs) == 1:
-    print(style.RED + f'{inputfs} encontrado')
-    inputf = inputfs[0]
-elif len(inputfs) > 1:
-    print(style.RED + f'Foram encontrados {len(inputfs)} arquivos com o mesmo nome:\n')
-    for i, arquivo in enumerate(inputfs):
-        print(style.WHITE + f' - {i+1}. {arquivo}')
-    i = input(style.CYAN + f'\nSelecione qual arquivo deseja (1 - {len(inputfs)}): '+style.WHITE)
-    inputf = inputfs[int(i)-1]      
-else:
-    print(style.YELLOW + f'Nenhum arquivo foi encontrado com o nome {inputf}.')
+    if len(inputfs) == 1:
+        print(style.RED + f'{inputfs} encontrado')
+        inputf = inputfs[0] 
+        loop = 0       
+    elif len(inputfs) > 1:
+        print(style.RED + f'Foram encontrados {len(inputfs)} arquivos com o mesmo nome:\n')
+        for i, arquivo in enumerate(inputfs):
+            print(style.WHITE + f' - {i+1}. {arquivo}')
+        i = input(style.CYAN + f'\nSelecione qual arquivo deseja (1 - {len(inputfs)}): '+style.WHITE)
+        inputf = inputfs[int(i)-1] 
+        loop = 0     
+    else:
+        print(style.YELLOW + f'Nenhum arquivo foi encontrado com o nome {inputf}.')
 
 outputf = input(style.CYAN + "\nArquivo de saída (txt): ")
 if not ('.txt') in outputf:

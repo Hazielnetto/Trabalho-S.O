@@ -6,6 +6,7 @@
 *.me
 *.txt
 *.json
+*.bin
 
 # DO NOT ignore this
 !README.md
