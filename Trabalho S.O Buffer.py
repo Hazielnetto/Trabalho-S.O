@@ -2,7 +2,6 @@ import glob, time, os, sys, re
 
 os.system("")
 
-
 class style:
 
     BLACK = "\033[30m"
@@ -61,11 +60,12 @@ class main:
                 style.CYAN  + "\nTempo de execução: ",   style.GREEN   ,round(end - start,2),"segundos",
                 style.CYAN  + "\nTamanho do buffer: ",   style.GREEN   ,TAMANHO_BUFFER,"Bytes",               style.MAGENTA + '(',round(pbyte), bfs,')')       
              
-        with open("output.txt", "a",encoding='utf-8') as f:
+        with open("log.txt", "a",encoding='utf-8') as f:
              print("\nNome do arquivo:   ", inputf,
                    "\nTamanho do arquivo:", ofilesize, "Bytes", '(', round(filesize, 2), fs, ')',
                    "\nTempo de execução: ", round(end - start, 2), "segundos",
-                   "\nTamanho do buffer: ", TAMANHO_BUFFER, "Bytes", '(', round(pbyte), bfs, ')',file=f)
+                   "\nTamanho do buffer: ", TAMANHO_BUFFER, "Bytes", '(', round(pbyte), bfs, ')',
+                   file=f)
         
 print(style.WHITE)
 os.system("cls")
@@ -77,38 +77,39 @@ if len(sys.argv) > 1:
 else:
     inputf = input(style.CYAN + "Arquivo de entrada: " + style.WHITE)    
     while inputf == '':
-        inputf = input(style.CYAN + "Arquivo de entrada: " + style.WHITE)        
-    inputfs = glob.glob(f"{inputf}.*")
+        inputf = input(style.CYAN + "Arquivo de entrada: " + style.WHITE) 
 
-    if len(inputfs) == 1:
-        print(style.RED + f"{inputfs} encontrado")
-        inputf = inputfs[0]
-    elif len(inputfs) > 1:
-        print(
-            style.RED
-            + f"Foram encontrados {len(inputfs)} arquivos com o mesmo nome:\n"
-        )
-        for i, arquivo in enumerate(inputfs):
-            print(style.WHITE + f" - {i+1}. {arquivo}")
-            
-        i = 0
+inputfs = glob.glob(f"{inputf}.*")
+
+if len(inputfs) == 1:
+    print(style.RED + f"{inputfs} encontrado")
+    inputf = inputfs[0]
+elif len(inputfs) > 1:
+    print(
+        style.RED
+        + f"Foram encontrados {len(inputfs)} arquivos com o mesmo nome:\n"
+    )
+    for i, arquivo in enumerate(inputfs):
+        print(style.WHITE + f" - {i+1}. {arquivo}")
+        
+    i = 0
+    i = input(
+        style.CYAN
+        + f"\nSelecione qual arquivo deseja (1 - {len(inputfs)}): "
+        + style.WHITE
+    )
+    while i == 0:
+        print(style.YELLOW + "Nenhum arquivo selecionado!")
         i = input(
             style.CYAN
             + f"\nSelecione qual arquivo deseja (1 - {len(inputfs)}): "
             + style.WHITE
         )
-        while i == 0:
-            print(style.YELLOW + "Nenhum arquivo selecionado!")
-            i = input(
-                style.CYAN
-                + f"\nSelecione qual arquivo deseja (1 - {len(inputfs)}): "
-                + style.WHITE
-            )
-        inputf = inputfs[int(i) - 1]
-    else:
-        print(style.YELLOW + f"Nenhum arquivo foi encontrado com o nome {inputf}.")
+    inputf = inputfs[int(i) - 1]
+else:
+    print(style.YELLOW + f"Nenhum arquivo foi encontrado com o nome {inputf}.")
     
-outputf = inputf+'.txt'    
+outputf = ".\\outputs\\python\\"+inputf+'.txt'    
 print('Saída do arquivo 'f'{inputf}, criada com sucesso')
 
 buffer = 32768
