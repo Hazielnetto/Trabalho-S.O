@@ -1,10 +1,10 @@
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileInputStream;
 
 public class Trabalho_SO_Buffer {
 
@@ -16,7 +16,10 @@ public class Trabalho_SO_Buffer {
     OutputStream outputStream = null;
 
     System.out.print("Arquivo de entrada: ");
-    String inputFileName = sc.next();
+    String inputFileName = sc.nextLine();
+    if (inputFileName.isEmpty()){
+      inputFileName = "video";
+    }
 
     File inputFile = new File(inputFileName);
     File dir = new File(inputFile.getAbsolutePath());
@@ -38,11 +41,9 @@ public class Trabalho_SO_Buffer {
       }
     }
 
-    System.out.print("Arquivo de saída (txt): ");
-    String outputFile = sc.next();
-    if (!outputFile.contains(".txt")) {
-      outputFile = (outputFile + ".txt");
-    }
+    
+    String outputFile = inputFileName+".txt";
+    System.out.print("Arquivo de saída: "+ outputFile);
 
     sc.close();
 
@@ -81,7 +82,10 @@ public class Trabalho_SO_Buffer {
 
         float elapsedTime = (float)((System.currentTimeMillis() - startTime) / 1000.0);
 
-        System.out.println("\nTipo de arquivo:    " + fileExtension.toUpperCase() + "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + "\nTempo de execução:  " + elapsedTime + " segundos" + "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
+        System.out.println( "\nNome do arquivo:    " + inputFile + 
+                            "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
+                            "\nTempo de execucao:  " + elapsedTime + " segundos" + 
+                            "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
 
       } catch (IOException e) {
         e.printStackTrace();
