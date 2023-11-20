@@ -10,9 +10,11 @@
 *.bin
 *.csv
 *.class
+*.mf
 
 # DO NOT ignore this
 !README.md
+!buffer.exe
 
 # ignore ALL this files in this directory
 temp/
