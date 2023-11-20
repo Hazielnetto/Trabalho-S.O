@@ -24,7 +24,7 @@ public class Trabalho_SO_Buffer {
         inputFileName = "video";
       }
     } else {
-        inputFileName = args[0];
+      inputFileName = args[0];
     }
 
     File inputFile = new File(inputFileName);
@@ -56,33 +56,34 @@ public class Trabalho_SO_Buffer {
     int fs = ofs;
     char pfs = ' ';
 
-    for (TAMANHO_BUFFER += 0; TAMANHO_BUFFER >= 4; TAMANHO_BUFFER *= .5) {
-
+    if (fs >= 1000) {
+      fs /= 1000;
+      pfs = 'K';
       if (fs >= 1000) {
         fs /= 1000;
-        pfs = 'K';
+        pfs = 'M';
         if (fs >= 1000) {
           fs /= 1000;
-          pfs = 'M';
-          if (fs >= 1000) {
-            fs /= 1000;
-            pfs = 'G';
-          }
+          pfs = 'G';
         }
       }
+    }   
 
-      long startTime = System.currentTimeMillis();
+    try {      
 
-      try {
+      for (TAMANHO_BUFFER += 0; TAMANHO_BUFFER >= 4; TAMANHO_BUFFER *= .5) {
+
+        long startTime = System.currentTimeMillis();
 
         inputStream = new FileInputStream(inputFile);
         outputStream = new FileOutputStream(outputFile);
 
         int bytesRead;
+
         while ((bytesRead = inputStream.read(buffer)) != -1) {
           outputStream.write(buffer, 0, bytesRead);
         }
-
+        
         float elapsedTime = (float)((System.currentTimeMillis() - startTime) / 1000.0);
 
         System.out.println( "\nNome do arquivo:    " + inputFile + 
@@ -94,22 +95,24 @@ public class Trabalho_SO_Buffer {
                         "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
                         "\nTempo de execucao:  " + elapsedTime + " segundos" + 
                         "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
+          writer.flush();
 
-      } catch (IOException e) {
-        System.out.println("An error occurred.");
-        e.printStackTrace();
-      } finally {
-        try {
-          if (inputStream != null) {
-            inputStream.close();
-          }
-          if (outputStream != null) {
-            outputStream.close();
-          }
-        } catch (IOException e) {
-          writer.close();
-          e.printStackTrace();
+        buffer = new byte[TAMANHO_BUFFER];
+
+      } writer.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    } finally {
+      try {
+        if (inputStream != null) {
+          inputStream.close();
         }
+        if (outputStream != null) {
+          outputStream.close();
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
   }
