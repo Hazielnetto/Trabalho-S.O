@@ -8,25 +8,24 @@ import java.io.OutputStream;
 import java.util.Scanner;
 
 public class Trabalho_SO_Buffer {
-  public static void main(String[] args)throws IOException {       
+  public static void main(String[] args)throws IOException {
 
     Scanner sc = new Scanner(System. in);
-
-    String inputFileName;
     InputStream inputStream = null;
     OutputStream outputStream = null;
-    FileWriter writer = new FileWriter("log.txt", true); 
+    FileWriter writer = new FileWriter("log.txt", true);
+    String inputFileName;
 
-    if (args[0].isEmpty()){      
+    if (args.length == 0) {
       System.out.print("Arquivo de entrada (0 para valor padrão): ");
       inputFileName = sc.nextLine();
 
-      if (inputFileName.equals("0")){
-      inputFileName = "video";
+      if (inputFileName.equals("0")) {
+        inputFileName = "video";
       }
-    }else{
-      inputFileName = args[0];
-    }      
+    } else {
+        inputFileName = args[0];
+    }
 
     File inputFile = new File(inputFileName);
     File dir = new File(inputFile.getAbsolutePath());
@@ -48,7 +47,7 @@ public class Trabalho_SO_Buffer {
       }
     }
     sc.close();
-    String outputFile = ".\\outputs\\java\\"+inputFile.getName()+".txt";    
+    String outputFile = ".\\outputs\\java\\" + inputFile.getName() + ".txt";
 
     int TAMANHO_BUFFER = 32768;
     byte[] buffer = new byte[TAMANHO_BUFFER];
@@ -74,8 +73,8 @@ public class Trabalho_SO_Buffer {
 
       long startTime = System.currentTimeMillis();
 
-      try {                
-        
+      try {
+
         inputStream = new FileInputStream(inputFile);
         outputStream = new FileOutputStream(outputFile);
 
@@ -87,20 +86,20 @@ public class Trabalho_SO_Buffer {
         float elapsedTime = (float)((System.currentTimeMillis() - startTime) / 1000.0);
 
         System.out.println( "\nNome do arquivo:    " + inputFile + 
-                            "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
-                            "\nTempo de execucao:  " + elapsedTime + " segundos" + 
-                            "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
-        
-        writer.write( "\nNome do arquivo:    " + inputFile + 
-                      "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' +
-                      "\nTempo de execucao:  " + elapsedTime + " segundos" +
-                      "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
+                              "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
+                              "\nTempo de execucao:  " + elapsedTime + " segundos" + 
+                              "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
 
-      } catch (IOException e) { 
-        System.out.println("An error occurred.");       
+          writer.write( "\nNome do arquivo:    " + inputFile + 
+                        "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
+                        "\nTempo de execucao:  " + elapsedTime + " segundos" + 
+                        "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
+
+      } catch (IOException e) {
+        System.out.println("An error occurred.");
         e.printStackTrace();
       } finally {
-        try {          
+        try {
           if (inputStream != null) {
             inputStream.close();
           }
@@ -112,6 +111,6 @@ public class Trabalho_SO_Buffer {
           e.printStackTrace();
         }
       }
-    }  
+    }
   }
 }
