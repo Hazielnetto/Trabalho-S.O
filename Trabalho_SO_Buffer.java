@@ -83,18 +83,20 @@ public class Trabalho_SO_Buffer {
         while ((bytesRead = inputStream.read(buffer)) != -1) {
           outputStream.write(buffer, 0, bytesRead);
         }
+
+        long endTime = System.currentTimeMillis();
         
-        float elapsedTime = (float)((System.currentTimeMillis() - startTime) / 1000.0);
+        float elapsedTime = (float)((endTime - startTime) / 1000.0);
 
         System.out.println( "\nNome do arquivo:    " + inputFile + 
                               "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
                               "\nTempo de execucao:  " + elapsedTime + " segundos" + 
                               "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
 
-          writer.write( "\nNome do arquivo:    " + inputFile + 
-                        "\nTamanho do arquivo: " + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
-                        "\nTempo de execucao:  " + elapsedTime + " segundos" + 
-                        "\nTamanho do buffer:  " + TAMANHO_BUFFER + " Bytes\n");
+          writer.write( "\nNome do arquivo:" + inputFile + 
+                        "\nTamanho do arquivo:" + ofs + " Bytes " + '(' + fs + ' ' + pfs + 'B' + ')' + 
+                        "\nTempo de execucao:" + elapsedTime + " segundos" + 
+                        "\nTamanho do buffer:" + TAMANHO_BUFFER + " Bytes\n");
           writer.flush();
 
         buffer = new byte[TAMANHO_BUFFER];

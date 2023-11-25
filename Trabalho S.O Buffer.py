@@ -61,10 +61,10 @@ class main:
                 style.CYAN  + "\nTamanho do buffer: ",   style.GREEN   ,TAMANHO_BUFFER,"Bytes",               style.MAGENTA + '(',round(pbyte), bfs,')')       
              
         with open("log.txt", "a",encoding='utf-8') as f:
-             print("\nNome do arquivo:   ", inputf,
+             print("\nNome do arquivo:", inputf,
                    "\nTamanho do arquivo:", ofilesize, "Bytes", '(', round(filesize, 2), fs, ')',
-                   "\nTempo de execução: ", round(end - start, 2), "segundos",
-                   "\nTamanho do buffer: ", TAMANHO_BUFFER, "Bytes", '(', round(pbyte), bfs, ')',
+                   "\nTempo de execução:", round(end - start, 2), "segundos",
+                   "\nTamanho do buffer:", TAMANHO_BUFFER, "Bytes", '(', round(pbyte), bfs, ')',
                    file=f)
         
 print(style.WHITE)
