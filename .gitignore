@@ -1,17 +1,6 @@
 # ignore ALL this files
-*.log
-*.zip
-*.mp4
-*.mkv
-*.md
-*.txt
-*.json
-*.bin
-*.csv
 *.class
-*.mf
-*.bat
-teste2.exe
+*.md
 
 # DO NOT ignore this
 !README.md
@@ -19,6 +8,8 @@ teste2.exe
 
 # ignore ALL this files in this directory
 temp/
+files/
+outputs/
 
 # ignore this folders
 .vscode
