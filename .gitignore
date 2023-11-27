@@ -3,7 +3,6 @@
 *.zip
 *.mp4
 *.mkv
-*.exe
 *.md
 *.txt
 *.json
@@ -12,10 +11,10 @@
 *.class
 *.mf
 *.bat
+teste2.exe
 
 # DO NOT ignore this
 !README.md
-!buffer.exe
 !run.bat
 
 # ignore ALL this files in this directory
