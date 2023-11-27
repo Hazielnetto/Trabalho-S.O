@@ -99,14 +99,95 @@ int main() {
             fwrite(buffer, 1, bytesRead, outputFile);
         }
         float elapsedTime = (float)(time(NULL) - startTime);
-        printf("\nTipo de arquivo:    %s\n", fileExtension);
+        printf("\nTipo de arquivo: %s\n", fileExtension);
         printf("Tamanho do arquivo: %d Bytes (%d %cB)\n", ofs, fs, pfs);
-        printf("Tempo de execução:  %.2f segundos\n", elapsedTime);
-        printf("Tamanho do buffer:  %d Bytes\n", TAMANHO_BUFFER);
+        printf("Tempo de execução: %.2f segundos\n", elapsedTime);
+        printf("Tamanho do buffer: %d Bytes\n", TAMANHO_BUFFER);
     }
     
     fclose(inputFile);
     fclose(outputFile);
     
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <string.h>
+
+// Modelo 1 de read-write em C
+
+int main() {
+    FILE *inputFile, *outputFile;
+    char nomeArquivo[32], inputFileName[256], outputFileName[256];
+    int buffersize = 32768;
+
+    char caminho[1024] = "E:\\Documentos\\Trabalhos FURB\\Trabalho-S.O\\";
+
+    // Get input file name from user
+    printf("Enter the name of the input file: ");
+    scanf("%s", nomeArquivo);     
+    strcat(caminho, nomeArquivo);
+    strcpy(inputFileName, caminho);
+
+    memset(caminho, 0, sizeof(caminho));
+    strcpy(caminho, "E:\\Documentos\\Trabalhos FURB\\Trabalho-S.O\\");
+
+    // Get output file name from user
+    printf("\nEnter the name of the output file: ");
+    scanf("%s", nomeArquivo);
+    strcat(caminho, nomeArquivo);
+    strcpy(outputFileName, caminho);
+
+    inputFile = fopen(inputFileName, "rb");
+    if (inputFile == NULL) {
+        printf("Error opening input file.\n");
+        return 1;
+    }
+    
+    outputFile = fopen(caminho, "w");
+    if (outputFile == NULL) {
+        printf("Error opening output file.\n");
+        return 1;
+    }
+
+    // Read from input file and write to output file using buffer  
+    char buffer[buffersize];  
+    size_t bytesRead;
+
+    fseek(inputFile, 0, SEEK_END);
+    long ofilesize = ftell(inputFile);
+    fclose(inputFile);
+
+    for (buffersize += 0; buffersize >= 4; buffersize /= 2) {
+        char buffer[buffersize];
+        long startTime = time(NULL);
+
+        char buffer[32000];
+    size_t bytesRead;
+    while ((bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)) > 0) {
+        fwrite(buffer, 1, bytesRead, outputFile);
+    }
+
+        fseek(inputFile, 0, SEEK_SET);
+        fseek(outputFile, 0, SEEK_SET);
+
+        while ((bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)) > 0) {
+            fwrite(buffer, 1, bytesRead, outputFile);
+        }
+
+        float elapsedTime = (float)(time(NULL) - startTime);
+
+        printf("Nome do arquivo: %s\n", inputFileName);
+        printf("Tamanho do arquivo: %ld Bytes\n", ofilesize);
+        printf("Tempo de execução: %f segundos\n", elapsedTime);
+        printf("Tamanho do buffer: %d Bytes (%.2f KB)\n", buffersize, (float)buffersize / 1024.0);
+}
+
+    fclose(inputFile);
+    fclose(outputFile);
+
+    printf("File copied successfully.\n");
+
     return 0;
 }
