@@ -1,6 +1,7 @@
 # ignore ALL this files
 *.class
 *.md
+*.code-workspace
 
 # DO NOT ignore this
 !README.md
