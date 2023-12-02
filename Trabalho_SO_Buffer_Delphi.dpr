@@ -12,7 +12,7 @@ var
   outputStream: TFileStream;
   writer: TStreamWriter;
   inputFileName, outputFile: string;
-  TAMANHO_BUFFER, bytesRead,ofs, fs: Integer;
+  TAMANHO_BUFFER, bytesRead,ofs, fs, result: Integer;
   buffer: array of Byte;
   pfs: Char;
   startTime, elapsedTime: Double;
@@ -20,11 +20,11 @@ var
 
 begin
   try
-    Write('Arquivo de entrada (0 para valor padrï¿½o): ');
+    Write('Arquivo de entrada (0 para valor padrão): ');
     ReadLn(inputFileName);
 
     if inputFileName = '0' then
-      inputFileName := 'video.mp4';
+      inputFileName := 'video';
 
     outputFile := '.\outputs\delphi\' + ExtractFileName(inputFileName) + '.txt';
 
@@ -94,6 +94,8 @@ begin
         FreeAndNil(writer);
       end;
 
+       Flush(output);
+       buffer := [];
        TAMANHO_BUFFER := TAMANHO_BUFFER div 2;
     end;
   except
