@@ -10,14 +10,15 @@ int main() {
     char outputFileName[256] = "E:\\Documentos\\Trabalhos FURB\\Trabalho-S.O\\files\\video.mp4.txt";
     int TAMANHO_BUFFER = 32768;    
 
-    printf("Caminho input: %s", inputFileName);
-    printf("Caminho output: %s", outputFileName);
+    // printf("Caminho input: %s\n", inputFileName);
+    // printf("Caminho output: %s\n", outputFileName);
     
 
     // Read from input file and write to output file using buffer
     // char buffer[32768];
     char buffer[TAMANHO_BUFFER];
     size_t bytesRead;
+    remove(outputFileName);
     
     while (TAMANHO_BUFFER >= 4){
 
@@ -27,7 +28,7 @@ int main() {
         //     return 1;
         // }
     
-        outputFile = fopen(outputFileName, "wb");
+        outputFile = fopen(outputFileName, "w");
         // if (outputFile == NULL) {
         //  printf("Error opening output file.\n");
         //     return 1;
@@ -35,9 +36,9 @@ int main() {
 
         clock_t startTime = clock();        
 
-        while ((bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)) > 0){
+        while ((bytesRead = fread(buffer, 1, sizeof(buffer), inputFile)) > 0){            
             fwrite(buffer, 1, bytesRead, outputFile);
-            fflush(inputFile);            
+            fflush(outputFile);
         }
 
         double elapsedTime = ((double)startTime)/CLOCKS_PER_SEC;
